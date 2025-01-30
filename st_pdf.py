@@ -19,7 +19,7 @@ def copy_to_clipboard(text):
         st.success("Copied to clipboard!")
     except pyperclip.PyperclipException:
         st.warning("Clipboard access not available. Please copy manually.")
-        st.text_input("Copy manually:", text)
+
 
 def fetch_metadata(doi):
     if not doi:
