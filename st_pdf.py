@@ -7,18 +7,19 @@ def clean_title(title):
     """Clean title while preserving spaces, letters, and removing <sub> tags."""
     if not title:
         return None
-    
-    # Remove <sub> and </sub> tags
     title = re.sub(r'</?sub>', '', title)
-    
-    # Keep letters, numbers, and spaces only
     cleaned = re.sub(r'[^a-zA-Z0-9\s]', '', title)
-    
-    # Normalize whitespace
     cleaned = ' '.join(cleaned.strip().split())
     
     return cleaned[:100]  # Limit to 100 characters
 
+def copy_to_clipboard(text):
+    try:
+        pyperclip.copy(text)
+        st.success("Copied to clipboard!")
+    except pyperclip.PyperclipException:
+        st.warning("Clipboard access not available. Please copy manually.")
+        st.text_input("Copy manually:", text)
 
 def fetch_metadata(doi):
     if not doi:
@@ -68,7 +69,7 @@ def main():
                             f"**Title:** {metadata['title'] or 'N/A'}", ) 
                 st.subheader("New filename:")
                 st.code(filename)
-                pyperclip.copy(filename)
+                copy_to_clipboard(filename)
 
       
             else:
