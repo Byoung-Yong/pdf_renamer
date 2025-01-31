@@ -11,7 +11,7 @@ def clean_title(title):
     cleaned = re.sub(r'[^a-zA-Z0-9\s]', '', title)
     cleaned = ' '.join(cleaned.strip().split())
     
-    return cleaned[:100]  # Limit to 100 characters
+    return cleaned[:150]  # Limit to 100 characters
 
 def copy_to_clipboard(text):
     try:
@@ -35,7 +35,7 @@ def fetch_metadata(doi):
         journal = data.get('container-title-short') or data.get('short-container-title')
         journal = journal[0].replace(" ", "") if isinstance(journal, list) else journal.replace(" ", "")
         authors = data.get('author', [])
-        corr_author = authors[0].get('family') if authors else None
+        corr_author = authors[-1].get('family') if authors else None
         title = data.get('title', [''])[0] if isinstance(data.get('title'), list) else data.get('title')
         
         return {
