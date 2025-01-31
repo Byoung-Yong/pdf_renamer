@@ -18,7 +18,7 @@ def copy_to_clipboard(text):
         pyperclip.copy(text)
         st.success("Copied to clipboard!")
     except pyperclip.PyperclipException:
-        st.warning("Clipboard access not available. Please copy manually.")
+        st.warning("Click to copy the filename.")
 
 
 def fetch_metadata(doi):
@@ -33,7 +33,7 @@ def fetch_metadata(doi):
         issued = data.get('issued', {}).get('date-parts', [[]])
         pub_year = str(issued[0][0]) if issued and issued[0] else None
         journal = data.get('container-title-short') or data.get('short-container-title')
-        journal = journal[0] if isinstance(journal, list) else journal
+        journal = journal[0].replace(" ", "") if isinstance(journal, list) else journal.replace(" ", "")
         authors = data.get('author', [])
         corr_author = authors[0].get('family') if authors else None
         title = data.get('title', [''])[0] if isinstance(data.get('title'), list) else data.get('title')
