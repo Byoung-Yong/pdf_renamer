@@ -49,7 +49,7 @@ def fetch_metadata(doi):
         return None
 
 def main():
-    st.title("DOI Metadata Fetcher")
+    st.title("Rename your PDF by DOI")
     
     doi = st.text_input("Enter DOI:")
     
@@ -68,7 +68,7 @@ def main():
                             f"**Corresponding Author:** {metadata['author'] or 'N/A'}  \n"
                             f"**Title:** {metadata['title'] or 'N/A'}", ) 
                 st.subheader("New filename:")
-                st.code(filename)
+                st.code(filename, language=None) 
                 copy_to_clipboard(filename)
 
       
